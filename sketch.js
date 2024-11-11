@@ -4,9 +4,9 @@ let bgImage
 let leafShapes=[]
 let numLeafShapes=4
 let givenImages=[]
-let numGivenImages=4
+let numGivenImages=5
 let givenSounds=[]
-let numGivenSounds=5
+let numGivenSounds=6
 let bgScale=1
 
 function preload(){
@@ -115,15 +115,13 @@ class Leaf{
       this.pos.y=this.oy-this.vDisp+ sin(this.risingA-PI/2)*this.vDisp
       this.yA+=this.yRot*2
       this.zA+=this.zRot*2
-      this.relScale+=(this.maxScale-this.relScale)/10; //2;//map(this.risingA,PI,0,1,2)
+      this.relScale+=(this.maxScale-this.relScale)/10; 
       if(abs(0-this.risingA)<0.25){
         this.isMoving=false
         this.isFalling=true
         this.ox=this.pos.x
       }
     } else if(this.isFalling){ 
-      
-      // this.pos.y+=(this.oy-this.pos.y)/20
       this.pos.y+=this.fallNow
       this.relScale=map(this.pos.y,this.oy-this.vDisp*2,this.oy,this.maxScale,1)
       
@@ -158,10 +156,6 @@ class Leaf{
   }
   
   show(){
-    // fill(0)
-    // text(nf(this.pos.x,3,0),10,20)
-    // text(nf(this.pos.y,3,0),10,40)
-    // noTint()
     tint(this.relRedTint,this.relGreenTint,this.relBlueTint)
     if(this.hover){
       tint(100,100,255)
@@ -177,17 +171,10 @@ class Leaf{
     translate(this.pos.x, this.pos.y)
     push()
     rotate(this.zA)
-    // rectMode(CENTER)
     imageMode(CENTER)
     scale(this.relScale,sin(this.yA)*this.relScale)
-    // if(this.isFalling){
-    //   scale(this.relScale,this.relScale)
-    // }
-    // square(0,0, this.s)
     image(this.img,0,0,this.s, this.s)
     pop()
-    // fill(255)
-    // text(nf(this.relScale,2,1),0,0)
     pop()
   }
   
@@ -214,8 +201,6 @@ class SoundPlayer{
     this.sound= loadSound(this.soundFile, this.soundDidLoad(this))
     
   }
-  
-  
   
   triggerSound(){
     this.sound.setVolume(0.8);
