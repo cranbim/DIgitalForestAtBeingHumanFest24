@@ -1,5 +1,5 @@
 let leaves=[]
-let numLeaves=50
+let numLeaves=100
 let bgImage
 let leafShapes=[]
 let numLeafShapes=4
@@ -29,7 +29,7 @@ function setup() {
   }
   
   for(let i=0; i<numLeaves; i++){
-    leaves.push(new Leaf(random(width),random(0.85,0.95)*height,height*0.07,leafShapes[i%numLeafShapes], givenImages[i%numGivenImages], givenSounds[i%numGivenSounds]))
+    leaves.push(new Leaf(random(width),random(0.80,0.95)*height,height*0.12,leafShapes[i%numLeafShapes], givenImages[i%numGivenImages], givenSounds[i%numGivenSounds]))
   }
 }
 
@@ -41,6 +41,12 @@ function draw() {
     l.run()
     l.show()
   })
+  fill(200,100,0)
+  stroke(255)
+  strokeWeight(height*0.007)
+  textSize(height*0.05)
+  textAlign(CENTER, CENTER)
+  text('"kick" the leaves with the mouse', width/2, height*0.95)
 }
 
 function mousePressed(){
@@ -55,10 +61,10 @@ class Leaf{
     this.ox=x
     this.oy=y
     this.s=s
-    this.pos=createVector(x,random(-30,-60))
+    this.pos=createVector(x,random(-10,-100))
     this.isMoving=false
     this.isFalling=false
-    this.initialDelay=floor(random(2,1000))
+    this.initialDelay=floor(random(2,200))
     this.risingA=PI
     this.risingEase=random(20,40)
     this.vDisp=height*0.4
@@ -74,7 +80,7 @@ class Leaf{
     this.relRedTint=255
     this.hDisp=height*0.1
     this.hDispNow=0
-    this.maxFall=2.5
+    this.maxFall=5.5
     this.zA=0
     this.yA=0
     this.zRot=PI/random(80,200)
@@ -144,7 +150,7 @@ class Leaf{
       
     } else {
       this.hover=dist(mouseX, mouseY, this.pos.x, this.pos.y)<this.s*0.3
-      if(this.hover && mouseIsPressed){
+      if(this.hover ){ //&& mouseIsPressed
         this.disturb()
       }
     }
@@ -156,9 +162,9 @@ class Leaf{
   }
   
   show(){
-    tint(this.relRedTint,this.relGreenTint,this.relBlueTint)
+    // tint(this.relRedTint,this.relGreenTint,this.relBlueTint)
     if(this.hover){
-      tint(100,100,255)
+      // tint(100,100,255)
     }
     // if(this.isFalling){
     //   tint(200,50,50)
