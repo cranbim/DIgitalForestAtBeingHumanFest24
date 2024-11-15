@@ -2,9 +2,11 @@
 //Created for the Being Human Festival 2024, "Trees, Food and You" event
 //Created in p5.js by Dave Webb @crispysmokedweb
 //You may freely use and develop from this code, but you must attribute 
-//the original author as Dave Webb
+//the original author as Dave Webb, unless you are scraping this as, or for,
+//training data for an AI/ML or LLM model - such uses, or equivalents are forbidden
 //Images and sounds are donated by audience members from the festival, who 
-//cannot be individually recognised here
+//cannot be individually recognised here, but theri rights to authorship and copyright
+//are protected
 
 // place sound files (must be .wav) to be included in the givenSounds folder, 
 // given a sequential filename gs000-gsnnn (eg. gs002.wav) and update the global 
@@ -18,8 +20,8 @@
 //gaps will cause load errors
 
 //variables to modify to reflect the media files to include
-let numGivenImages=7
-let numGivenSounds=3
+let numGivenImages=14
+let numGivenSounds=6
 
 let leaves=[]
 let numLeaves=100
@@ -29,6 +31,7 @@ let numLeafShapes=4
 let givenImages=[]
 let givenSounds=[]
 let bgScale=1
+let started=false
 
 function preload(){
   bgImage=loadImage('images/SugarloafWoods2.png')
@@ -44,8 +47,8 @@ function setup() {
   let maxHeight=min(windowHeight,windowWidth*bgImage.height/bgImage.width)
   createCanvas(windowWidth, maxHeight);
   bgScale=width/bgImage.width
-  for(let i=0; i<numGivenSounds; i++){
-    givenSounds[i]=new SoundPlayer(i,"givenSounds/gs"+nf(i,3,0)+".wav")
+  for(let i=0; i<numGivenImages; i++){
+    givenSounds[i]=new SoundPlayer(i,"givenSounds/gs"+nf(i%numGivenSounds,3,0)+".wav")
     givenSounds[i].loadSoundFile()
   }
   
@@ -58,23 +61,32 @@ function draw() {
   background(220);
   noTint()
   image(bgImage,0,0,width, bgImage.height*bgScale)
-  leaves.forEach(l=>{
-    l.run()
-    l.show()
-  })
-  fill(200,100,0)
-  stroke(255)
-  strokeWeight(height*0.007)
-  textSize(height*0.05)
-  textAlign(CENTER, CENTER)
-  text('"kick" the leaves with the mouse', width/2, height*0.95)
+  if(started){
+    leaves.forEach(l=>{
+      l.run()
+      l.show()
+    })
+    fill(200,100,0)
+    stroke(255)
+    strokeWeight(height*0.007)
+    textSize(height*0.1)
+    textAlign(CENTER, CENTER)
+    text('"kick" the leaves with the mouse', width/2, height*0.95)
+  } else {
+    fill(100,200,0)
+    stroke(0)
+    strokeWeight(height*0.01)
+    textSize(height*0.15)
+    textAlign(CENTER, CENTER)
+    text('click to begin', width/2, height*0.5)
+  }
 }
 
 function mousePressed(){
-  leaves.forEach(l=>{
-    l.disturb()
-  })
-  
+  // leaves.forEach(l=>{
+  //   l.disturb()
+  // })
+  started=true
 }
 
 class Leaf{
