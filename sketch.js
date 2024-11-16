@@ -20,8 +20,8 @@
 //gaps will cause load errors
 
 //variables to modify to reflect the media files to include
-let numGivenImages=14
-let numGivenSounds=6
+let numGivenImages=29
+let numGivenSounds=12
 
 let leaves=[]
 let numLeaves=100
